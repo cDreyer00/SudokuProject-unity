@@ -58,11 +58,24 @@ public class GameManager : MonoBehaviour
 
     void CheckSameNumbers(int column, int line)
     {
-        List<GridNumber> sameNumbers = new();
+        List<GridNumber> rowNumbers = new();
 
         // verify same column grid and add to list
+        for(int i= 0; i < gridNumbers.Count; i++){
+            if(i % 9 == column - 1){
+                rowNumbers.Add(gridNumbers[i]);
+            }
+        }
 
         // catch repetitive numbers and mark
+        for(int i = 0; i < rowNumbers.Count; i++ ){
+            for(int k = 0; k < rowNumbers.Count; i ++){
+                if(rowNumbers[i].Number == rowNumbers[k].Number){
+                    rowNumbers[i].HiglighNumber(Color.red);
+                    rowNumbers[k].HiglighNumber(Color.red);
+                }
+            }
+        }
 
         // clear list
 
@@ -97,7 +110,6 @@ public class GameManager : MonoBehaviour
 
     List<GridNumber> GetSameRowGrids(int column, int line)
     {
-        column--;
         int minLineVal = line * 9 - 9;
         int maxLineVal = line * 9;
         List<GridNumber> gn = new();
@@ -105,7 +117,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < gridNumbers.Count; i++)
         {
 
-            if (i % 9 == column)
+            if (i % 9 == column - 1)
             {
                 gn.Add(gridNumbers[i]);
             }

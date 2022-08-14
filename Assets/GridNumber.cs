@@ -19,6 +19,11 @@ public class GridNumber : MonoBehaviour
         sprite.color = Color.white;
     }
 
+    public void HiglighNumber(Color color)
+    {
+        numberText.color = color;
+    }
+
     void OnMouseDown()
     {
         string n = GameManager.SelectedNumber == 0 ? "" : GameManager.SelectedNumber.ToString();
