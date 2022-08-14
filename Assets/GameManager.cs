@@ -50,39 +50,6 @@ public class GameManager : MonoBehaviour
         foreach (var n in selectNumbers) n.Selected();
     }
 
-    void HighlightRows(List<GridNumber> gridRows)
-    {
-        foreach (GridNumber g in gridNumbers) g.DeselectGrid();
-        foreach (GridNumber g in gridRows) g.SelectGrid();
-    }
-
-    void CheckSameNumbers(int column, int line)
-    {
-        List<GridNumber> rowNumbers = new();
-
-        // verify same column grid and add to list
-        for(int i= 0; i < gridNumbers.Count; i++){
-            if(i % 9 == column - 1){
-                rowNumbers.Add(gridNumbers[i]);
-            }
-        }
-
-        // catch repetitive numbers and mark
-        for(int i = 0; i < rowNumbers.Count; i++ ){
-            for(int k = 0; k < rowNumbers.Count; i ++){
-                if(rowNumbers[i].Number == rowNumbers[k].Number){
-                    rowNumbers[i].HiglighNumber(Color.red);
-                    rowNumbers[k].HiglighNumber(Color.red);
-                }
-            }
-        }
-
-        // clear list
-
-        // do same to the line
-         
-    }
-
     public void FindRows(GridNumber grid)
     {
         int column = 1;
@@ -131,6 +98,50 @@ public class GameManager : MonoBehaviour
         return gn;
     }
 
+
+    void HighlightRows(List<GridNumber> gridRows)
+    {
+        foreach (GridNumber g in gridNumbers) g.HighlightGrid(Color.white);
+        foreach (GridNumber g in gridRows) g.HighlightGrid(Color.green);
+    }
+
+    void CheckSameNumbers(int column, int line)
+    {
+        List<GridNumber> rowNumbers = new();
+
+        // verify same column grid and add to list
+        for (int i = 0; i < gridNumbers.Count; i++)
+        {
+            if (i % 9 == column - 1)
+            {
+                rowNumbers.Add(gridNumbers[i]);
+
+            }
+        }
+        // catch repetitive numbers and mark
+        bool allGood = true;
+        for (int i = 0; i < rowNumbers.Count; i++)
+        {
+            allGood = true;
+            for (int k = 0; k < rowNumbers.Count; k++)
+            {
+                if (k == i) continue;
+                if (rowNumbers[i].Number == rowNumbers[k].Number)
+                {
+                    rowNumbers[k].HighlighNumber(Color.red);
+                    allGood = false;
+                    continue;
+                }
+            }
+
+            if(allGood) rowNumbers[i].HighlighNumber(Color.black);
+        }
+
+        // clear list
+
+        // do same to the line
+
+    }
 
     int Count(int i)
     {

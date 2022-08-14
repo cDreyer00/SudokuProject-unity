@@ -9,21 +9,15 @@ public class GridNumber : MonoBehaviour
     [SerializeField] SpriteRenderer sprite;
     public int Number {get; private set;}
 
-    public void SelectGrid()
-    {
-        sprite.color = Color.green;
-    }
-    
-    public void DeselectGrid()
-    {
-        sprite.color = Color.white;
-    }
-
-    public void HiglighNumber(Color color)
+    public void HighlighNumber(Color color)
     {
         numberText.color = color;
     }
 
+    public void HighlightGrid(Color color)
+    {
+        sprite.color = color;
+    }
     void OnMouseDown()
     {
         string n = GameManager.SelectedNumber == 0 ? "" : GameManager.SelectedNumber.ToString();
